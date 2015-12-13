@@ -9,6 +9,6 @@ COPY src/sites/site.dev /var/www/html/sites/
 COPY src/sites/staging.site /var/www/html/sites/
 COPY src/sites/all /var/www/html/sites/
 
-RUN mysqladmin -u root -p create site_test
-RUN mysql -u root -p -e "GRANT ALL ON site_test.* TO 'site'@'localhost' IDENTIFIED BY 'site';"
-RUN mysqladmin -u root -p flush-privileges
+VOLUME /var/lib/mysql
+
+CMD ["true"]

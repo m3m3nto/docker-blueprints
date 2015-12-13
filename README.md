@@ -1,2 +1,2 @@
 # docker-blueprints
-Usefull docker blueprints
+Useful docker blueprints

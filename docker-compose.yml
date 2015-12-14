@@ -1,7 +1,7 @@
 data:
   build: docker/data/.
 mysql:
-  image: mysql
+  image: m3m3nto/mysql
   ports:
     - "4406:3306"
   environment:

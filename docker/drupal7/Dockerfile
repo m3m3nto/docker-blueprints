@@ -1,0 +1,10 @@
+FROM drupal:7
+
+COPY etc/php.ini /usr/local/etc/php/
+COPY etc/000-default.conf /etc/apache2/sites-available/
+COPY etc/my.cnf /etc/my.cnf
+COPY src/sites/sites.php /var/www/html/sites/sites.php
+COPY src/sites/site.com /var/www/html/sites/
+COPY src/sites/site.dev /var/www/html/sites/
+COPY src/sites/staging.site /var/www/html/sites/
+COPY src/sites/all /var/www/html/sites/

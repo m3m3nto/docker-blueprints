@@ -1,12 +1,17 @@
-data:
-  build: docker/data/.
-mysql:
-  image: m3m3nto/mysql
+drupal:
+  build: docker/drupal7/
+  links:
+    - mysql:mysqlhost
   ports:
-    - "4406:3306"
+    - "8080:80"
+  hostname: drupalhost
+mysql:
+  image: mysql
   environment:
-    MYSQL_ROOT_PASSWORD: "mysqlRootPwd"
-  volumes:
-    - ./docker/data:./docker-entrypoint-initdb.d
-  volumes_from:
-    - data
+    MYSQL_ROOT_PASSWORD: 'mysqlRootPwd'
+    MYSQL_DATABASE: 'site_dev'
+    MYSQL_USER: 'site'
+    MYSQL_PASSWORD: 'site'
+  ports:
+   - "4406:3306"
+  hostname: mysqlhost

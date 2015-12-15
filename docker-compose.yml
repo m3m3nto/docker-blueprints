@@ -1,9 +1,13 @@
+#nginx:
+#  image: nginx
+#  ports:
+#    - "80:80"
 drupal:
   build: docker/drupal7/
   links:
     - mysql:mysqlhost
   ports:
-    - "8080:80"
+    - "8080"
   hostname: drupalhost
 mysql:
   image: mysql

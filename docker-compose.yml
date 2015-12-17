@@ -1,14 +1,12 @@
-#nginx:
-#  image: nginx
-#  ports:
-#    - "80:80"
 drupal:
   build: docker/drupal7/
   links:
     - mysql:mysqlhost
-  ports:
+  expose:
     - "8080"
   hostname: drupalhost
+  volumes:
+    - ./src:/var/www/html
 mysql:
   image: mysql
   environment:
@@ -19,3 +17,15 @@ mysql:
   ports:
    - "4406:3306"
   hostname: mysqlhost
+  volumes:
+    - ./data:/var/lib/mysql
+haproxy:
+  image: tutum/haproxy
+  links:
+   - drupal:drupalhost
+  ports:
+   - "80:80"
+   - "1936:1936"
+  environment:
+   - BACKEND_PORT=8080
+   - BALANCE=roundrobin

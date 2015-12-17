@@ -1,10 +1,16 @@
-FROM drupal:7
+# from https://www.drupal.org/requirements/php#drupalversions
+FROM php:5.6-apache
+
+RUN a2enmod rewrite
+
+# install the PHP extensions we need
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
+  && rm -rf /var/lib/apt/lists/* \
+  && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+  && docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip
+
+WORKDIR /var/www/html
 
 COPY etc/php.ini /usr/local/etc/php/
-COPY etc/000-default.conf /etc/apache2/sites-available/
+COPY etc/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY etc/my.cnf /etc/my.cnf
-COPY src/sites/sites.php /var/www/html/sites/sites.php
-COPY src/sites/site.com /var/www/html/sites/
-COPY src/sites/site.dev /var/www/html/sites/
-COPY src/sites/staging.site /var/www/html/sites/
-COPY src/sites/all /var/www/html/sites/

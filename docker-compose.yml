@@ -1,12 +1,17 @@
 drupal:
-  build: docker/drupal7/
+  image: m3m3nto/php-apache:5.6
   links:
     - mysql:mysqlhost
   expose:
     - "8080"
   hostname: drupalhost
   volumes:
-    - ./src:/var/www/html
+    - /htdocs/docker-blueprints/src:/var/www/html
+    - /htdocs/docker-blueprints/log:/var/log/apache2
+    - /htdocs/docker-blueprints/vhost:/etc/apache2/sites-available
+    - /htdocs/docker-blueprints/docker/php-apache/etc/php.ini:/etc/php5/apache2/php.ini
+  container_name: php-drupal
+  mem_limit: 40m
 mysql:
   image: mysql
   environment:
@@ -18,7 +23,9 @@ mysql:
    - "4406:3306"
   hostname: mysqlhost
   volumes:
-    - ./data:/var/lib/mysql
+    - /htdocs/docker-blueprints/data:/var/lib/mysql
+    - /htdocs/docker-blueprints/docker/mysql/etc/my.cnf:/etc/my.cnf
+  container_name: mysql
 haproxy:
   image: tutum/haproxy
   links:
@@ -29,3 +36,4 @@ haproxy:
   environment:
    - BACKEND_PORT=8080
    - BALANCE=roundrobin
+  container_name: haproxy

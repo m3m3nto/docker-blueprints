@@ -1,5 +1,6 @@
 # from https://www.drupal.org/requirements/php#drupalversions
 FROM php:5.6-apache
+MAINTAINER Lorenzo Monaco <m3m3nto@gmail.com>
 
 RUN a2enmod rewrite
 
@@ -10,7 +11,3 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
   && docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip
 
 WORKDIR /var/www/html
-
-COPY /htdocs/docker-blueprints/docker/drupal7/etc/php.ini /usr/local/etc/php/
-COPY /htdocs/docker-blueprints/docker/drupal7/etc/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY /htdocs/docker-blueprints/docker/drupal7/etc/my.cnf /etc/my.cnf

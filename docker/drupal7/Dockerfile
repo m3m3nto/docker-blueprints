@@ -11,6 +11,6 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
 
 WORKDIR /var/www/html
 
-COPY etc/php.ini /usr/local/etc/php/
-COPY etc/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY etc/my.cnf /etc/my.cnf
+COPY /htdocs/docker-blueprints/docker/drupal7/etc/php.ini /usr/local/etc/php/
+COPY /htdocs/docker-blueprints/docker/drupal7/etc/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY /htdocs/docker-blueprints/docker/drupal7/etc/my.cnf /etc/my.cnf

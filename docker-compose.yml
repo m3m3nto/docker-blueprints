@@ -6,12 +6,12 @@ drupal:
     - "8080"
   hostname: drupalhost
   volumes:
-    - /htdocs/docker-blueprints/src:/var/www/html
-    - /htdocs/docker-blueprints/log:/var/log/apache2
-    - /htdocs/docker-blueprints/vhost:/etc/apache2/sites-available
-    - /htdocs/docker-blueprints/docker/php-apache/etc/php.ini:/etc/php5/apache2/php.ini
-  container_name: php-drupal
-  mem_limit: 40m
+    - ./src:/var/www/html
+    - ./log:/var/log/apache2
+    - ./vhost:/etc/apache2/sites-available
+    - ./docker/php-apache/etc/php.ini:/usr/local/etc/php/php.ini
+  #container_name: php-drupal
+  #mem_limit: 40m
 mysql:
   image: mysql
   environment:
@@ -23,8 +23,10 @@ mysql:
    - "4406:3306"
   hostname: mysqlhost
   volumes:
-    - /htdocs/docker-blueprints/data:/var/lib/mysql
-    - /htdocs/docker-blueprints/docker/mysql/etc/my.cnf:/etc/my.cnf
+    - ./data:/var/lib/mysql
+    - ./scripts:/opt/scripts
+    - ./docker/mysql/etc/my.cnf:/etc/my.cnf
+  command: "/opt/scripts/osx-local-mysqlfix.sh"
   container_name: mysql
 haproxy:
   image: tutum/haproxy

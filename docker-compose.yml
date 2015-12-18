@@ -28,7 +28,7 @@ mysql:
     - ./scripts:/opt/scripts
     - ./docker/mysql/etc/my.cnf:/etc/my.cnf
   command: "/opt/scripts/osx-local-mysqlfix.sh"
-  container_name: mysql
+  #container_name: mysql
   restart: always
 haproxy:
   image: tutum/haproxy
@@ -40,5 +40,5 @@ haproxy:
   environment:
    - BACKEND_PORT=8080
    - BALANCE=roundrobin
-  container_name: haproxy
+  #container_name: haproxy
   restart: always

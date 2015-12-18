@@ -12,6 +12,7 @@ drupal:
     - ./docker/php-apache/etc/php.ini:/usr/local/etc/php/php.ini
   #container_name: php-drupal
   #mem_limit: 40m
+  restart: always
 mysql:
   image: mysql
   environment:
@@ -28,6 +29,7 @@ mysql:
     - ./docker/mysql/etc/my.cnf:/etc/my.cnf
   command: "/opt/scripts/osx-local-mysqlfix.sh"
   container_name: mysql
+  restart: always
 haproxy:
   image: tutum/haproxy
   links:
@@ -39,3 +41,4 @@ haproxy:
    - BACKEND_PORT=8080
    - BALANCE=roundrobin
   container_name: haproxy
+  restart: always

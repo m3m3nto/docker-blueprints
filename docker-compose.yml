@@ -13,6 +13,7 @@ drupal:
   #container_name: php-drupal
   #mem_limit: 40m
   restart: always
+  mem_limit: 1000m
 mysql:
   image: mysql
   environment:
@@ -30,6 +31,7 @@ mysql:
   command: "/opt/scripts/osx-local-mysqlfix.sh"
   #container_name: mysql
   restart: always
+  mem_limit: 700m
 haproxy:
   image: tutum/haproxy
   links:
@@ -42,3 +44,4 @@ haproxy:
    - BALANCE=roundrobin
   #container_name: haproxy
   restart: always
+  mem_limit: 400m
